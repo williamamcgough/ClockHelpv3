@@ -1,0 +1,25 @@
+.btn {
+    border: 1px #cbdbf4 solid !important;
+    border-radius: 0.50px;
+}
+
+.btn:hover {
+    border: 2px #cbdbf4 solid !important;
+}
+
+body{
+    background-color: #f4f8ff !important;
+    padding: 20px;
+}
+
+.container{
+    background-color: white;
+    padding: 20px;
+    border-radius: 0.5px;
+}
+
+input {
+    font-size: 20px !important;
+    text-align: left !important; display: left !important; align-items: left !important; justify-content: left !important;
+}
+

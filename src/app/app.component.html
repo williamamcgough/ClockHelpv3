@@ -1,0 +1,80 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+  crossorigin="anonymous">
+
+<style>
+  input.form-control.text-center.bs-timepicker-field{
+    width: 80px !important;
+    font-size: 20px;
+}
+.form-control {
+  font-size: 20px;
+}
+</style>
+
+<ul style="text-align: center; display: flex; align-items: center; justify-content: center;" class="nav nav-tabs side_nav" role="tablist">
+  <li style="margin-right: 20px;" *ngFor="let wallet of coinwallet; let first = first;" [ngClass]="{firstItem: first}" role="presentation" class="accounts_li btn btn-primary" 
+    [class.active]="selectedwallet===wallet">
+    <a (click)="selectedwallet = wallet" aria-controls="one" role="tab" data-toggle="tab">{{wallet}}</a>
+  </li>
+<a download style="text-align: center; display: flex; align-items: center; justify-content: center;" href="https://drive.google.com/uc?authuser=0&id=11ubYz_-ZxUqANRDhtGjYC1lKuK6Mhbmb&export=download">Download Weekly Timetracker</a>
+</ul>
+
+<div class="tab-content">
+  <div *ngIf="selectedwallet === coinwallet[0]" role="tabpanel" class="tab-pane active" id="one">
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Weekly to Daily Hourly Breakdown</h1>
+        <h6>Figure out how many hours to work per day</h6>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <h5>How many hours are you working this week?</h5>
+          <input oninput="if(this.value > 80) this.value = 80; if (this.value < 0) this.value = 0;" [(ngModel)]="HoursThisWeek" style="width: 150px;" class="form-control" type="number" min="0"><br>
+        </div>
+        <div class="col-md-6">
+          <h5>How many days are you working this week?</h5>
+          <input oninput="if(this.value > 7) this.value = 7; if (this.value < 1) this.value = 1;" [(ngModel)]="DaysThisWeek" style="width: 150px;" class="form-control" type="number"><br>
+        </div>
+      </div>
+      <h2 class="alert alert-success">You have to work <span class="clockOutTime">{{
+          CalculateHoursPerDay() }}</span>
+         per day this week! </h2>
+    </div>
+  </div>
+  <div *ngIf="selectedwallet === coinwallet[1]" role="tabpanel" class="tab-pane active" id="two">
+    <div class="container">
+      <div class="jumbotron">
+        <h1>Clock Out Calculator</h1>
+        <h6>Figure out what time to clock out day by day.</h6>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <h5>What time are you clocking in today?</h5>
+          <br>
+          <timepicker minuteStep="1" [mousewheel]="allowMouseWheel" [showSpinners]="showSpinners" [(ngModel)]="ClockInTime"></timepicker>
+        </div>
+
+        <div class="col-md-4">
+          <h5>How long are you working today?</h5>
+          <div class="row">
+            <div class="col-md-5">
+              Hr<input oninput="if(this.value > 24) this.value = 24; if (this.value < 0) this.value = 0;" min="0" [(ngModel)]="TotalHoursNeeded" placeholder="e.g. 8" type="number" class="form-control">
+            </div>
+            <div class="col-md-5">
+              Min<input oninput="if(this.value > 60) this.value = 60; if (this.value < 0) this.value = 0;" min="0" [(ngModel)]="TotalMinutesNeeded" placeholder="e.g. 30" type="number" class="form-control">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <h5>How long is your lunch today?</h5>
+          Min<input oninput="if(this.value > 60) this.value = 60; if (this.value < 0) this.value = 0;" min="0" style="width: 150px;" [(ngModel)]="LunchTime" placeholder="e.g. 30" type="number" class="form-control">
+        </div>
+      </div>
+      <h2 style="margin-top: 40px;" class="alert alert-success">You have to clock out at <span class="clockOutTime">{{
+          CalculateClockOutTime() }}</span>
+        today! </h2>
+    </div>
+  </div>
+</div>
+<br>
